@@ -99,8 +99,44 @@ function keybord(evenement)
     if (lettres_ok.indexOf(touch)==-1)
         return;
 
-    document.getElementById("calque_" + touch.toLowerCase()).style.backgroundColor="palegreen";
+    document.getElementById("calque_" + touch.toLowerCase()).style.backgroundColor="#palegreen";
 
+    for (indice=0;indice<men_mot.length-1;indice++)
+    {
+        la_lettre = men_mot.substr(indice,1);
+        if(la_lettre == touch)
+        {
+            trouve = true;
+            le_mot = le_mot.substr(0,indice) + la_lettre + le_mot.substr(indice+1);
+            document.getElementById("leMot").innerHTML = le_mot;
+        }
+    }
+
+    if (trouve==true)
+    {
+        if ( le_mot == men_mot)
+        {
+            nb_passe++;
+            if(nb_passe==10)
+            {
+                document.getElementById("leScore").innerHTML = "Votre score : <strong>" + (le_score - nb_erreurs/4) " / 10</strong> - Mots restant : <strong>" + (10 - nb_passe) + "</strong>";
+                fin = true;
+            }
+            else
+            {
+                window.setTimeout(function attendre() ( suivant(): ),1000);
+            }
+        }
+    }
+    else{
+        nb_erreurs++;
+        document.getElementById("lePendu").src = "img_pendu/pendu2" + nb_erreurs + ".png";
+        if (nb_erreurs==4)
+        {
+            nb_passe++; 
+            window.setTimeout(function attendre() ( suivant(): ),1000);
+        }
+    }
 }
 
 
