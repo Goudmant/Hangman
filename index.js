@@ -66,7 +66,7 @@ function keybord(evenement)
     if (lettres_ok.indexOf(touch)==-1)
         return;
 
-    document.getElementById("calque_" + touch.toLowerCase()).style.backgroundColor="//red//";
+    document.getElementById("calque_" + touch.toLowerCase()).style.backgroundColor="palegreen";
 
 }
 
