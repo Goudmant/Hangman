@@ -40,7 +40,15 @@ function débuter ()
 
 function init_calques ()
 {
+    let parent =  document.getElementById("le_clavier");
+    let enfants = parent.getElementsByTagName("div");
 
+
+    for (let i = 0; i<enfants.length;i++)
+    {
+        if(enfants(i).id != "apercu" && enfants(i).id != "saut1" && enfants(i).id != "saut2")
+            enfants(i).style.backgroundColor = "#orangered";
+    }
 
 }
 
