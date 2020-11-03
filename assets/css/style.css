@@ -1,32 +1,92 @@
 body {
   background-color: orangered;
+  max-width: 100%;
 }
 
 h1 {
-  color: green;
+  color: black;
   font-family: 'Knewave', cursive;
+  text-align: left;
+  margin-top: 5%;
+  font-size: 3em;
+  margin-left: 5%;
 }
 
 h2 {
-  color: palegreen;
+  color: #008200;
   font-family: 'Knewave', cursive;
+  text-align: left;
+  font-size: 2em;
+  margin-left: 5%;
 }
 
 h3 {
   color: #a30000;
   font-family: 'Knewave', cursive;
+  text-align: center;
+  font-size: 6em;
+}
+
+.titre {
+  margin-left: 5%;
+}
+
+.astuce {
+  margin-left: 5%;
+  margin-bottom: 5%;
 }
 
 .lettre {
+  color: black;
   float: left;
   margin: 4px;
   text-align: center;
   width: 35px;
   height: 30px;
   padding-top: 5px;
-  background-color: #EDEEEE;
-  border: #0f5c00 1px solid;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
+  background-color: orangered;
+  border: black 2px solid;
+  border-radius: 50px;
+}
+
+.centre {
+  text-align: left;
+}
+
+.branche {
+  width: 50%;
+  height: auto;
+  position: absolute;
+  left: 50%;
+  top: 5%;
+}
+
+.corde {
+  width: 35%;
+  height: auto;
+  position: absolute;
+  top: 51%;
+  left: 45%;
+}
+
+.pendu {
+  width: 30%;
+  height: auto;
+  position: absolute;
+  top: 95%;
+  left: 48%;
+}
+
+.citrouille {
+  width: 10%;
+  height: auto;
+  position: absolute;
+  top: 5%;
+  left: 80%;
+}
+
+input.input {
+  position: absolute;
+  text-align: center;
 }
 /*# sourceMappingURL=style.css.map */

@@ -12,58 +12,26 @@
     <div class="div_conteneur_parent">
         <div id="infos" class="texte_div"></div>
             <div class="div_conteneur_page">
-                		
                 <div class="titre_page"><h1>A tes risques et périls !</h1></div>
-                
-                <div class="div_int_page">
-                
-                <div style="width:100%;display:block;text-align:center;">
-                </div>
-                
-                <div class="div_saut_ligne" style="height:30px;">
-                </div>						
-                
-                <div style="float:left;width:10%;height:40px;"></div>
-                <div style="float:left;width:80%;height:40px;text-align:center;">
-    
+                <div class="soustitre"><h2>Devine le mot juste où meurt</h2></div>
     </div>
-    <h2>Devine le mot juste où meurt</h2>
-			</div>
-			</div>
-					
-			<div style="float:left;width:10%;height:40px;"></div>
-			
-			<div class="div_saut_ligne">
-			</div>		
-			
-			<div style="width:100%;height:auto;text-align:center;">
-						
-			<div style="width:800px;display:inline-block;" id="conteneur">
-			
-				<div class="centre">
-					<div class="titre_centre" id="titre">
+					<div class="titre" id="titre">
 						Tapez les lettres au clavier (Sans accent) pour dévoiler le mot de l'indication				
 					</div>	
-				</div>		
-			
-				<div class="colonne" id="colonne_gauche">
-					<div class="astuce" id="indication">
-					Indication :<br /><strong>Indice pour le mot à trouver</strong>
-					</div>
-					<div class="astuce" id="leMot" style="font-size:20px;letter-spacing:2px;">
+					<div class="astuce" id="leMot">
 					Mot à trouver
 					</div>
 					<div class="astuce" id="leScore">
 					Votre score : <strong>10 / 10</strong> - Mots restants : <strong>10</strong>
 					</div>
-					<input type="button" value="Débuter" onClick="debuter()"/>
+					<input class="input" type="button" value="Débuter" onClick="debuter()"/>
 				</div>
 				<div class="colonne" id="colonne_droite" style="text-align:center;">
-				<img src="img_pendu/pendu_defaut.png" alt="" id="lePendu" style="height:220px;" />
-				</div>
-    
-        <h3>MOUHAHAHA!!!</h3>
-    </div>
+                    <div><img class="branche" src="./assets/IMG/branche.png" alt="branche"></img></div>
+                    <div><img class="pendu" src="./assets/IMG/epouvantail.png" alt="pendu"></img></div>
+                    <div><img class="corde" src="./assets/IMG/corde-pendu.png" alt="corde"></img></div>
+                    <div><img class="citrouille" src="./assets/IMG/tete.png" alt="citrouille game over"></img></div>
+                </div>
     <div class="centre" id="le_clavier">
         <div class="titre_centre" id="apercu" style="height:140px;padding-left:74px;width:650px;">
         <div class="lettre" id="calque_a">A</div><div class="lettre" id="calque_b">B</div>
@@ -82,7 +50,164 @@
         <div class="lettre" id="calque_w">W</div><div class="lettre" id="calque_x">X</div>
         <div class="lettre" id="calque_y">Y</div>
         <div class="lettre" id="calque_z">Z</div>
-    </div>		
+    </div>	
+    <div class="sousoutitre"><h3>MOUHAHAHA!!!</h3></div>	
 
 </body>
+<script>
+index.js;
+
+let fin = true;
+let nb_erreurs = 0 ;
+let nb_passe = 0; 
+let tab_mots; 
+let nb_mots = 0; 
+let chaine_rangee = "";
+let le_mot = "" ; 
+let lindication = "";
+let men_mot = "" ; 
+let le_score = 10 ; 
+let lettres_ok = "ABCDEFGHIJKLMOPQRSTUVWXYZ"; 
+let la_touch = "";
+
+request ();
+
+function request()
+{
+    tab_mots = mots_a_trouver (). split("*");
+    nb_mots = tab_mots.lenght;
+    //test:
+    //alert(nb_mots);
+    //ou
+    //alert (tab_mots(0));
+
+}
+
+function débuter ()
+{   
+    if(la_touch == "")
+        return;
+
+    fin = false; nb_coups = 0; chaine_rangee="";
+    nb_passe = 0; nb_erreurs = 0; le_score = 10; 
+
+    suivant ();
+
+}
+
+function init_calques ()
+{
+    let parent =  document.getElementById("le_clavier");
+    let enfants = parent.getElementsByTagName("div");
+
+
+    for (let i = 0; i<enfants.length;i++)
+    {
+        if(enfants[i].id != "apercu" && enfants[i].id != "saut1" && enfants[i].id != "saut2")
+            enfants(i).style.backgroundColor = "#orangered";
+    }
+
+}
+
+function suivant ()
+{
+    let tab_enigme; 
+    let nb_alea = Math.floor(Math.random()*nb_mots);
+    //test
+    //alert(nb_alea);
+
+    le_score = le_score - nb_erreurs/4;
+
+    document.getElementById("leScore").innerHTML = "Votre score : <strong>" + le_score " / 10</strong> - Mots restant : <strong>" + (10 - nb_passe) + "</strong>";
+    document.getElementById("lePendu").src = "img_pendu/";
+
+    nb_erreurs = 0; 
+    init_calques();
+
+    while(chaine_rangee.indexOf(" " + nb_alea + " ")>-1)
+    {
+        nb_alea = Math.floor(Math.random()*nb_mots);
+    }
+
+    chaine_rangee += " " + nb_alea + " ";
+    tab_enigme = tab_mots[nb_alea].split(' ');
+    le_mot = tab_enigme[0];
+    lindication = tab_enigme[1];
+    men_mot = le_mot.toUpperCase();
+    le_mot = le_mot.toUpperCase().replace(/[A-Z]/," ");
+    //test
+    //alert(indication + " " + men_mot );
+
+    document.getElementById("indication").innerHTML = "Indication : <br /><strong>" + lindication + "</strong>";
+    document.getElementById("leMot").innerHTML = le_mot;
+}
+
+function keybord(evenement)
+{
+    let indice = 0; 
+    let la_lettre = "";
+    let trouve = false;
+
+    if (fin == true)
+        return; 
+
+    let touch = window.event ? evenement.keyCode : evenement,which;
+    touch = String.fromCharCode(touch).substr(0,1);
+    //test:
+    //alert(touch);
+
+    if (touch == " ")
+    {
+        la_touch = " ";
+        return;
+    }
+    if (lettres_ok.indexOf(touch)==-1)
+        return;
+
+    document.getElementById("calque_" + touch.toLowerCase()).style.backgroundColor="#palegreen";
+
+    for (indice=0;indice<men_mot.length-1;indice++)
+    {
+        la_lettre = men_mot.substr(indice,1);
+        if(la_lettre == touch)
+        {
+            trouve = true;
+            le_mot = le_mot.substr(0,indice) + la_lettre + le_mot.substr(indice+1);
+            document.getElementById("leMot").innerHTML = le_mot;
+        }
+    }
+
+    if (trouve==true)
+    {
+        if ( le_mot == men_mot)
+        {
+            nb_passe++;
+            if(nb_passe==10)
+            {
+                document.getElementById("leScore").innerHTML = "Votre score : <strong>" + (le_score - nb_erreurs/4) " / 10</strong> - Mots restant : <strong>" + (10 - nb_passe) + "</strong>";
+                fin = true;
+            }
+            else
+            {
+                window.setTimeout(function attendre() { suivant() },1000);
+            }
+        }
+    }
+    else{
+        nb_erreurs++;
+        document.getElementById("lePendu").src = "./assets/IMG/cordependu.png" + nb_erreurs + ".png";
+        if (nb_erreurs==4)
+        {
+            nb_passe++; 
+            window.setTimeout(function attendre() { suivant() },1000);
+        }
+    }
+}
+
+
+
+</script>
+
+
+
 </html>
